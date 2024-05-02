@@ -1,0 +1,9 @@
+# General
+.DS_Store
+
+# Eclipse
+.metadata
+.settings
+[Rr]elease
+[Dd]ebug
+.launch
