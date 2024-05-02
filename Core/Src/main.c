@@ -98,8 +98,10 @@ struct pid {
   int d;
   float kd;
 };
-struct pid pitch = {.last_p = 0, .i = 0, .kp = 0.13, .ki = 0.0, .kd = 275};
-struct pid motor_speed =  {.last_p = 0, .i = 0, .kp = 50, .ki = 0.008, .kd = 15};
+struct pid pitch = {.last_p = 0, .i = 0, .kp = 0.12, .ki = 0.01, .kd = 300};
+struct pid motor_speed =  {.last_p = 0, .i = 0, .kp = 30, .ki = 0.01, .kd = 40};
+// struct pid pitch = {.last_p = 0, .i = 0, .kp = 0.13, .ki = 0.0, .kd = 200};
+// struct pid motor_speed =  {.last_p = 0, .i = 0, .kp = 40, .ki = 0.005, .kd = 15};
 int velo = 0;
 /* USER CODE END PV */
 
@@ -198,12 +200,12 @@ int main(void)
         } else if (motor_speed.i+motor_speed.p>0) {motor_speed.i = 5000;}
         else {motor_speed.i = -5000;}
         motor_speed.d = (motor_speed.p - motor_speed.last_p)/((HAL_GetTick()-last_tick)*0.001);
-        velo = 0.5*(4*(pitch.kp * pitch.p + pitch.ki * pitch.i + pitch.kd * pitch.d) + 1.5* (motor_speed.kp * motor_speed.p + motor_speed.ki * motor_speed.i + motor_speed.kd * motor_speed.d));
+        velo = 0.5*(4*(pitch.kp * pitch.p + pitch.ki * pitch.i + pitch.kd * pitch.d) + 1.75* (motor_speed.kp * motor_speed.p + motor_speed.ki * motor_speed.i + motor_speed.kd * motor_speed.d));
         move(velo);
         pitch.last_p = pitch.p;
         motor_speed.last_p = motor_speed.p;
         last_tick = HAL_GetTick();
-        HAL_Delay(5);
+        HAL_Delay(2);
       }
   }
   /* USER CODE END 3 */
